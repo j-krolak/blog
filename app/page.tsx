@@ -1,19 +1,21 @@
-import Link from "next/link";
-import { getPostsIds } from "@/lib/posts"
+import { getSortedPosts } from "@/lib/posts"
 import PostPreview from "./components/PostPreview";
+import Header from "./components/Header";
 
 export default function Home() {
-  const postsIds = getPostsIds();
-  
+  const posts = getSortedPosts();
   return (
-    <main>
-      <h1>{"Hi! I'm Jakub Krolak"}</h1>
-      <p>
-        {"I'm passionat of programic, mathematic and music etc."}
-      </p>
-      {postsIds.map((id) => (
-        <PostPreview id={id} key={id}/>
-      ))}
+    <>
+      <header>
+        <Header home/>
+      </header>
+      <main>
+        <div className="grid grid-cols-2 gap-5">
+          {posts.map((post) => (
+            <PostPreview post={post} key={post.id}/>
+          ))}
+        </div>
     </main>
+    </>
   )
 }

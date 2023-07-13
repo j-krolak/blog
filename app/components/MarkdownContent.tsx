@@ -4,7 +4,7 @@ import remarkHtml from 'remark-html';
 const MarkdownContent = ({matterContent, ...props}: {matterContent: string}) => {
     const processedContent = remark().use(remarkHtml).processSync(matterContent).toString();
     return (
-        <div dangerouslySetInnerHTML={{__html:processedContent}} {...props}></div>
+        <div className="text-lg markdown" dangerouslySetInnerHTML={{__html:processedContent}} {...props}></div>
     );
 }
 
