@@ -1,10 +1,14 @@
 import { getPostsIds, getPostData } from '../../../lib/posts';
 import MarkdownContent from '@/app/components/MarkdownContent';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { GetStaticPaths } from 'next';
 
 export default function PostPage(props: any) {
 
     const post = getPostData(props.params.id);
+    if(!post)
+        return notFound();
 
     return (
     <>
@@ -17,9 +21,13 @@ export default function PostPage(props: any) {
 
 
 
-export const generateStaticParams = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const postsIds = getPostsIds();
-    return postsIds.map((postId) => ({
-        id: encodeURI(postId)
-    }));
+    return {
+        paths: postsIds.map((postId) => ({
+            params: { id: encodeURI(postId) }
+        })),
+        fallback: false
+    };
+        
 };

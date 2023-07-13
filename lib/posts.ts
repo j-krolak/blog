@@ -4,9 +4,10 @@ import matter from 'gray-matter';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
+
+
 export const getPostsIds = () :  string[] => {
     const fileNames = fs.readdirSync(postsDirectory);
-    console.log(fileNames);
     return fileNames.map((fileName) => (
         path.parse(fileName).name
     ));
